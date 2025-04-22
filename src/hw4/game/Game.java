@@ -131,7 +131,6 @@ import hw4.player.Player;
 		    }
 
 		    // Places an (EXIT) on the top-left cell
-//		    int exitRow = rand.nextInt(size);
 		    Cell exitCell = rows.get(0).getCells().get(0);
 		    exitCell.setLeft(CellComponents.EXIT); 
 
