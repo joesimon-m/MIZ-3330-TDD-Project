@@ -24,17 +24,17 @@ import hw4.player.Player;
 			}
 		}
 
-		/**
+		/** Game constructor that sets the given grid parameter into this object's grid variable
 		 * 
 		 * @param grid
 		 */
 		public Game(Grid grid) {
-			this.grid = grid;
+			setGrid(grid);
 		}
 
-		/**
+		/** Returns the grid object 
 		 * 
-		 * @return
+		 * @return		grid object
 		 */
 		public Grid getGrid() {
 			return this.grid;
@@ -86,13 +86,13 @@ import hw4.player.Player;
 			player.setCurrentCell(cell);
 			player.setCurrentRow(row);
 			
-			// checks to see if this cell has aperture or not
+			// checks to see if this cell has an aperture or not
 			return (direction == CellComponents.APERTURE) ? true : false;
 		}
 
-		/**
+		/** Sets the grid for this Game object to the given parameter grid
 		 * 
-		 * @param grid
+		 * @param grid		grid to be assigned to this.grid
 		 */
 		public void setGrid(Grid grid) {
 			this.grid = grid;
