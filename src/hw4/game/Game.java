@@ -1,5 +1,8 @@
 package hw4.game;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import hw4.maze.Cell;
 import hw4.maze.CellComponents;
 import hw4.maze.Grid;
@@ -17,11 +20,7 @@ import hw4.player.Player;
 		 * @param i		int variable representing grid size
 		 */
 		public Game(int i) {
-			if(i < 3 || i > 7) {
-				this.grid = null;
-			} else {
-				this.grid = createRandomGrid(i); // Creates a random grid of ixi size
-			}
+			this.grid = createRandomGrid(i); // Creates a random grid of ixi size
 		}
 
 		/** Game constructor that sets the given grid parameter into this object's grid variable
@@ -47,13 +46,15 @@ import hw4.player.Player;
 		 * @return
 		 */
 		public boolean play(Movement movement, Player player) {
+			if((grid == null) || (movement == null) || (player == null)) {
+				return false;
+			} 
+			
 			int rowIndex = grid.getRows().indexOf(player.getCurrentRow());
 			int colIndex = player.getCurrentRow().getCells().indexOf(player.getCurrentCell());
 			CellComponents direction;
 			
-			if((grid == null) || (movement == null) || (player == null)) {
-				return false;
-			} else if(movement == Movement.UP) {
+			if(movement == Movement.UP) {
 				rowIndex--;
 				direction = player.getCurrentCell().getUp();
 			} else if(movement == Movement.DOWN) {
@@ -101,12 +102,58 @@ import hw4.player.Player;
 
 		/**
 		 * 
-		 * @param i
+		 * @param size
 		 * @return
 		 */
-		public Grid createRandomGrid(int i) {
-			// TODO Auto-generated method stub
-			return null;
+		public Grid createRandomGrid(int size) {
+			if((size < 3) || (size > 7)) return null;
+
+		    ArrayList<Row> rows = new ArrayList<>();
+		    Random rand = new Random();
+
+		    // Creates each cell for each row
+		    for(int i = 0; i < size; i++) {
+		        ArrayList<Cell> cells = new ArrayList<>();
+		        for(int j = 0; j < size; j++) {
+		            CellComponents up = randomComponent(rand);
+		            CellComponents down = randomComponent(rand);
+		            CellComponents left = randomComponent(rand);
+		            CellComponents right = randomComponent(rand);
+
+		            // Making sure there is one opening (APERTURE) contained in each cell
+		            if((up != CellComponents.APERTURE) && (down != CellComponents.APERTURE) && (left != CellComponents.APERTURE) && (right != CellComponents.APERTURE)) {
+		                left = CellComponents.APERTURE; 
+		            }
+
+		            cells.add(new Cell(up, down, left, right));
+		        }
+		        rows.add(new Row(cells));
+		    }
+
+		    // Places an (EXIT) on the top-left cell
+//		    int exitRow = rand.nextInt(size);
+		    Cell exitCell = rows.get(0).getCells().get(0);
+		    exitCell.setLeft(CellComponents.EXIT); 
+
+		    return new Grid(rows);
+		}
+
+		/**
+		 * 
+		 * @param rand
+		 * @return
+		 */
+		private CellComponents randomComponent(Random rand) {
+		    int pick = rand.nextInt(2); // (WALL) or (APERTURE)
+		    return (pick == 0) ? CellComponents.WALL : CellComponents.APERTURE;
+		}
+		
+		/**
+		 * 
+		 */
+		@Override
+		public String toString() {
+		    return "Game [grid=" + grid + "]";
 		}
 
 	}
