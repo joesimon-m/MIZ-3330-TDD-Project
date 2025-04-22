@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Grid {
 
+	private ArrayList<Row> rows;
+	
 	public Grid(ArrayList<Row> rows) {
-		// TODO Auto-generated constructor stub
+		this.rows = rows;
 	}
 
 	public ArrayList<Row> getRows() {
-		// TODO Auto-generated method stub
-		return null;
+		return rows;
 	}
 
-	public void setRows(Object object) {
-		// TODO Auto-generated method stub
-		
+	public void setRows(ArrayList<Row> rows) {
+		this.rows = rows;
 	}
 
 }
