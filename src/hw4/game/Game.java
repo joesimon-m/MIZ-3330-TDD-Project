@@ -81,6 +81,7 @@ import hw4.player.Player;
 				return false; 
 			}
 			
+			// updates the current row and cell
 			Row row = grid.getRows().get(rowIndex);
 			Cell cell = row.getCells().get(colIndex);
 			player.setCurrentCell(cell);

@@ -4,53 +4,50 @@ import java.util.ArrayList;
 
 public class Cell {
 
-	public Cell(CellComponents exit, CellComponents aperture, CellComponents wall, CellComponents aperture2) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public ArrayList<Cell> getCells() {
-		// TODO Auto-generated method stub
-		return null;
+	private CellComponents left;
+	private CellComponents right;
+	private CellComponents up;
+	private CellComponents down;
+	
+	//CellComponents exit, CellComponents aperture, CellComponents wall, CellComponents aperture2
+	public Cell(CellComponents left, CellComponents right, CellComponents up, CellComponents down) {
+		this.left = (left != null) ? left : CellComponents.WALL;
+        this.right = (right != null) ? right : CellComponents.WALL;
+        this.up = (up != null) ? up : CellComponents.WALL;
+        this.down = (down != null) ? down : CellComponents.WALL;
+		
 	}
 
 	public CellComponents getRight() {
-		// TODO Auto-generated method stub
-		return null;
+		return right;
 	}
 
 	public CellComponents getLeft() {
-		// TODO Auto-generated method stub
-		return null;
+		return left;
 	}
 
 	public CellComponents getDown() {
-		// TODO Auto-generated method stub
-		return null;
+		return down;
 	}
 
 	public CellComponents getUp() {
-		// TODO Auto-generated method stub
-		return null;
+		return up;
 	}
 
-	public void setUp(Object object) {
-		// TODO Auto-generated method stub
-		
+	public void setUp(CellComponents up) {
+		this.up = up;
 	}
 
-	public void setDown(CellComponents aperture) {
-		// TODO Auto-generated method stub
-		
+	public void setDown(CellComponents down) {
+		this.down = down;
 	}
 
-	public void setLeft(CellComponents aperture) {
-		// TODO Auto-generated method stub
-		
+	public void setLeft(CellComponents left) {
+		this.left = left;
 	}
 
-	public void setRight(CellComponents exit) {
-		// TODO Auto-generated method stub
-		
+	public void setRight(CellComponents right) {
+		this.right = right;
 	}
 
 }
