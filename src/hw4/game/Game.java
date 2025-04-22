@@ -1,30 +1,30 @@
 package hw4.game;
 
 import hw4.maze.Grid;
+import hw4.player.Movement;
 import hw4.player.Player;
 
 public class Game {
 
+	private Grid grid;
+
 	public Game(int i) {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Game(Grid grid) {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public Object getGrid() {
-		// TODO Auto-generated method stub
+	public Grid getGrid() {
 		return null;
 	}
 
-	public Object play(String up, Player player) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean play(Movement movement, Player player) {
+		return false;
 	}
 
-	public void setGrid(Object object) {
-		// TODO Auto-generated method stub
+	public void setGrid(Grid grid) {
 		
 	}
 

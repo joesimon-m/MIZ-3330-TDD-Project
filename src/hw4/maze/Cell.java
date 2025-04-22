@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Cell {
 
-	public Cell(String exit, String aperture, String wall, String aperture2) {
+	public Cell(CellComponents exit, CellComponents aperture, CellComponents wall, CellComponents aperture2) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -13,17 +13,17 @@ public class Cell {
 		return null;
 	}
 
-	public String getRight() {
+	public CellComponents getRight() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String getLeft() {
+	public CellComponents getLeft() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public String getDown() {
+	public CellComponents getDown() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -38,17 +38,17 @@ public class Cell {
 		
 	}
 
-	public void setDown(String aperture) {
+	public void setDown(CellComponents aperture) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void setLeft(String aperture) {
+	public void setLeft(CellComponents aperture) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void setRight(String exit) {
+	public void setRight(CellComponents exit) {
 		// TODO Auto-generated method stub
 		
 	}
