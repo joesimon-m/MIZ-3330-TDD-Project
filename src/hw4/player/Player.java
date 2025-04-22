@@ -1,21 +1,32 @@
 package hw4.player;
 
 import hw4.maze.Cell;
+import hw4.maze.Row;
 
 public class Player {
+	
+	private Row currentRow;
+	private Cell currentCell;
 
-	public Player(Cell cell, Cell cell2) {
-		// TODO Auto-generated constructor stub
+	public Player(Row row, Cell cell) {
+		setCurrentRow(row);
+		setCurrentCell(cell);
 	}
 
-	public Object getCurrentRow() {
-		// TODO Auto-generated method stub
-		return null;
+	public Row getCurrentRow() {
+		return currentRow;
 	}
 
-	public Object getCurrentCell() {
-		// TODO Auto-generated method stub
-		return null;
+	public Cell getCurrentCell() {
+		return currentCell;
+	}
+	
+	public void setCurrentRow(Row row) {
+		this.currentRow = row;
+	}
+	
+	public void setCurrentCell(Cell cell) {
+		this.currentCell = cell;
 	}
 
 }

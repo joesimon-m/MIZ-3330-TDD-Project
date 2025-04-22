@@ -8,7 +8,7 @@ public class Grid {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArrayList<Cell> getRows() {
+	public ArrayList<Row> getRows() {
 		// TODO Auto-generated method stub
 		return null;
 	}

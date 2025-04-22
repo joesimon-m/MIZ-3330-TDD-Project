@@ -28,7 +28,7 @@ public class Cell {
 		return null;
 	}
 
-	public String getUp() {
+	public CellComponents getUp() {
 		// TODO Auto-generated method stub
 		return null;
 	}
