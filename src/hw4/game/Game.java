@@ -39,13 +39,14 @@ import hw4.player.Player;
 			return this.grid;
 		}
 
-		/**
+		/** Moves the player in the given direction and returns whether this action was successful
 		 * 
-		 * @param movement
-		 * @param player
-		 * @return
+		 * @param movement		Movement enum containing the direction that the player should go
+		 * @param player		Player representing where the player is
+		 * @return				True when the player has successfully moved, and false otherwise
 		 */
 		public boolean play(Movement movement, Player player) {
+			// Making sure not to call a null variable
 			if((grid == null) || (movement == null) || (player == null)) {
 				return false;
 			} 
@@ -54,6 +55,7 @@ import hw4.player.Player;
 			int colIndex = player.getCurrentRow().getCells().indexOf(player.getCurrentCell());
 			CellComponents direction;
 			
+			// Moving the player
 			if(movement == Movement.UP) {
 				rowIndex--;
 				direction = player.getCurrentCell().getUp();
@@ -67,11 +69,10 @@ import hw4.player.Player;
 				colIndex++;
 				direction = player.getCurrentCell().getRight();
 			} else {
-				return false;
+				return false; // Movement isn't valid
 			}
 			
-			// checking to see if the row index and column index are outside the ixi square,
-			// or if a wall was hit
+			// Checking to see if the row index and column index are outside the ixi square, or if a WALL was hit
 			if((rowIndex < 0) || (rowIndex >= grid.getRows().size())) {
 				return false;
 			} 
@@ -82,72 +83,72 @@ import hw4.player.Player;
 				return false; 
 			}
 			
-			// updates the current row and cell
+			// Updates the current row and cell
 			Row row = grid.getRows().get(rowIndex);
 			Cell cell = row.getCells().get(colIndex);
 			player.setCurrentCell(cell);
 			player.setCurrentRow(row);
 			
-			// checks to see if this cell has an aperture or not
+			// Checks to see if this cell has an aperture or not
 			return (direction == CellComponents.APERTURE) ? true : false;
 		}
 
 		/** Sets the grid for this Game object to the given parameter grid
 		 * 
-		 * @param grid		grid to be assigned to this.grid
+		 * @param grid		grid to be assigned into this.grid
 		 */
 		public void setGrid(Grid grid) {
 			this.grid = grid;
 		}
 
-		/**
+		/** Creates a grid of size x size containing random CellComponents for each cell
 		 * 
-		 * @param size
-		 * @return
+		 * @param size		int size of the grid
+		 * @return			Current Grid object 
 		 */
 		public Grid createRandomGrid(int size) {
 			if((size < 3) || (size > 7)) return null;
 
 		    ArrayList<Row> rows = new ArrayList<>();
-		    Random rand = new Random();
 
 		    // Creates each cell for each row
 		    for(int i = 0; i < size; i++) {
 		        ArrayList<Cell> cells = new ArrayList<>();
 		        for(int j = 0; j < size; j++) {
-		            CellComponents up = randomComponent(rand);
-		            CellComponents down = randomComponent(rand);
-		            CellComponents left = randomComponent(rand);
-		            CellComponents right = randomComponent(rand);
+		            CellComponents up = randomComponent();
+		            CellComponents down = randomComponent();
+		            CellComponents left = randomComponent();
+		            CellComponents right = randomComponent();
 
-		            // Making sure there is one opening (APERTURE) contained in each cell
+		            // Making sure there is one opening contained in each cell
 		            if((up != CellComponents.APERTURE) && (down != CellComponents.APERTURE) && (left != CellComponents.APERTURE) && (right != CellComponents.APERTURE)) {
 		                left = CellComponents.APERTURE; 
 		            }
 
-		            cells.add(new Cell(up, down, left, right));
+		            cells.add(new Cell(left, right, up, down));        
 		        }
 		        rows.add(new Row(cells));
 		    }
 
-		    // Places an (EXIT) on the top-left cell
+		    // Places an EXIT on the top-left cell
 		    Cell exitCell = rows.get(0).getCells().get(0);
 		    exitCell.setLeft(CellComponents.EXIT); 
 
 		    return new Grid(rows);
 		}
 
-		/**
+		/** Helper function for the createRandomGrid class that generates a random number between
+		 * 0 and 1, where either CellComponent is returned to the user
 		 * 
-		 * @param rand
-		 * @return
+		 * @return		CellComponents enum (either WALL or APERTURE)
 		 */
-		private CellComponents randomComponent(Random rand) {
-		    int pick = rand.nextInt(2); // (WALL) or (APERTURE)
+		public CellComponents randomComponent() {
+			Random rand = new Random();
+		    int pick = rand.nextInt(2); // 0 for WALL, 1 for APERTURE
 		    return (pick == 0) ? CellComponents.WALL : CellComponents.APERTURE;
 		}
 		
-		/**
+		/** Generates a toString for the Game class
 		 * 
 		 */
 		@Override
