@@ -16,7 +16,7 @@ public class Main {
     private static Game game;
 
     public static void main(String[] args) {
-        int gridSize = 3;  // You can randomize this if needed
+        int gridSize = 3;
         game = new Game(gridSize);
 
         int agentRow = getRandomPosition(gridSize);
@@ -33,42 +33,42 @@ public class Main {
                 game.getGrid().getRows().get(agentRow).getCells().get(agentCol)
         );
 
-        Scanner scanner = new Scanner(System.in);
+       
         boolean hasEscaped = false;
+        try (Scanner scanner = new Scanner(System.in)){ 
+        	displayGrid(player);
+        	while (!hasEscaped) {
+                System.out.println("Enter a move: (UP, DOWN, LEFT, RIGHT): ");
+                String move = scanner.nextLine().toUpperCase();
 
-        displayGrid(player);
+                if (!isValidMove(move)) {
+                    System.out.println("Invalid move. Please enter UP, DOWN, LEFT, or RIGHT.");
+                    continue;
+                }
 
-        while (!hasEscaped) {
-            System.out.println("Enter a move: (UP, DOWN, LEFT, RIGHT): ");
-            String move = scanner.nextLine().toUpperCase();
+                Movement movement = Movement.valueOf(move);
+                Cell currentCell = player.getCurrentCell();
 
-            if (!isValidMove(move)) {
-                System.out.println("Invalid move. Please enter UP, DOWN, LEFT, or RIGHT.");
-                continue;
-            }
+               
+                int currentRowIndex = game.getGrid().getRows().indexOf(player.getCurrentRow());
+                int currentColIndex = player.getCurrentRow().getCells().indexOf(currentCell);
 
-            Movement movement = Movement.valueOf(move);
-            Cell currentCell = player.getCurrentCell();
+                boolean isOnExitCell = (currentRowIndex == 0 && currentColIndex == 0);
+                boolean isMovingIntoExit = (movement == Movement.LEFT && currentCell.getLeft() == CellComponents.EXIT);
 
-            // Get current indices
-            int currentRowIndex = game.getGrid().getRows().indexOf(player.getCurrentRow());
-            int currentColIndex = player.getCurrentRow().getCells().indexOf(currentCell);
+                if (isOnExitCell && isMovingIntoExit) {
+                    hasEscaped = true;
+                    System.out.println("Agent has exited the maze.");
+                    break;
+                }
 
-            boolean isOnExitCell = (currentRowIndex == 0 && currentColIndex == 0);
-            boolean isMovingIntoExit = (movement == Movement.LEFT && currentCell.getLeft() == CellComponents.EXIT);
+                boolean moved = game.play(movement, player);
+                if (!moved) {
+                    System.out.println("Move blocked by wall or invalid direction.");
+                }
 
-            if (isOnExitCell && isMovingIntoExit) {
-                hasEscaped = true;
-                System.out.println("Agent has exited the maze.");
-                break;
-            }
-
-            boolean moved = game.play(movement, player);
-            if (!moved) {
-                System.out.println("Move blocked by wall or invalid direction.");
-            }
-
-            displayGrid(player);
+                displayGrid(player);
+        }
         }
     }
 
