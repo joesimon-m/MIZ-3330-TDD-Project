@@ -33,12 +33,47 @@ public class Main {
                 game.getGrid().getRows().get(agentRow).getCells().get(agentCol)
         );
 
+        Scanner scanner = new Scanner(System.in);
+        boolean hasEscaped = false;
 
-        displayGrid(player);}
+        displayGrid(player);
 
+        while (!hasEscaped) {
+            System.out.println("Enter a move: (UP, DOWN, LEFT, RIGHT): ");
+            String move = scanner.nextLine().toUpperCase();
+
+            if (!isValidMove(move)) {
+                System.out.println("Invalid move. Please enter UP, DOWN, LEFT, or RIGHT.");
+                continue;
+            }
+
+            Movement movement = Movement.valueOf(move);
+            Cell currentCell = player.getCurrentCell();
+
+            // Get current indices
+            int currentRowIndex = game.getGrid().getRows().indexOf(player.getCurrentRow());
+            int currentColIndex = player.getCurrentRow().getCells().indexOf(currentCell);
+
+            boolean isOnExitCell = (currentRowIndex == 0 && currentColIndex == 0);
+            boolean isMovingIntoExit = (movement == Movement.LEFT && currentCell.getLeft() == CellComponents.EXIT);
+
+            if (isOnExitCell && isMovingIntoExit) {
+                hasEscaped = true;
+                System.out.println("Agent has exited the maze.");
+                break;
+            }
+
+            boolean moved = game.play(movement, player);
+            if (!moved) {
+                System.out.println("Move blocked by wall or invalid direction.");
+            }
+
+            displayGrid(player);
+        }
+    }
 
     private static void displayGrid(Player player) {
-        System.out.println("Current Grid State:");
+        System.out.println("Current Grid:");
         ArrayList<Row> rows = game.getGrid().getRows();
         for (int i = 0; i < rows.size(); i++) {
             for (int j = 0; j < rows.get(i).getCells().size(); j++) {
@@ -61,4 +96,7 @@ public class Main {
         return rand.nextInt(gridSize);
     }
 
+    private static boolean isValidMove(String move) {
+        return move.equals("UP") || move.equals("DOWN") || move.equals("LEFT") || move.equals("RIGHT");
+    }
 }
