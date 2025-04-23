@@ -72,10 +72,10 @@ import hw4.player.Player;
 			
 			// checking to see if the row index and column index are outside the ixi square,
 			// or if a wall was hit
-			if((rowIndex < 0) || (rowIndex > grid.getRows().size()+1)) {
+			if((rowIndex < 0) || (rowIndex >= grid.getRows().size())) {
 				return false;
 			} 
-			if((colIndex < 0) || (colIndex > grid.getRows().get(0).getCells().size()+1)) {
+			if((colIndex < 0) || (colIndex >= grid.getRows().get(0).getCells().size())) {
 				return false;
 			}
 			if(direction == CellComponents.WALL) {
