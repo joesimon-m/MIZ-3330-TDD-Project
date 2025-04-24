@@ -150,6 +150,7 @@ import hw4.player.Player;
 		
 		/** Generates a toString for the Game class
 		 * 
+		 * @return	String representing the Game and the grid
 		 */
 		@Override
 		public String toString() {
